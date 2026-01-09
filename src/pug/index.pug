@@ -65,8 +65,27 @@ html(lang='en')
                         h2.text-white.mt-0 About Me
                         hr.divider.divider-light
                         p.text-white-75.mb-4
-                            | Experienced DevOps Engineer with a passion for automation, cloud infrastructure, and continuous improvement. Specialized in building scalable solutions using modern DevOps practices and tools. Strong background in infrastructure as code, CI/CD pipelines, and container orchestration.
-                        a.btn.btn-light.btn-xl(href='#skills') View Skills
+                            | DevOps Engineer specializing in cloud infrastructure automation, CI/CD pipeline optimization, and container orchestration. Proven track record in implementing Infrastructure as Code solutions, reducing deployment times, and improving system reliability. Passionate about building scalable, secure, and efficient cloud-native applications.
+                        .row.mt-4
+                            .col-md-4.mb-3
+                                .text-white-75
+                                    i.bi-cloud-check.fs-3.mb-2
+                                    p.mb-0
+                                        strong Cloud Platforms
+                                    p.small AWS | Azure | GCP
+                            .col-md-4.mb-3
+                                .text-white-75
+                                    i.bi-diagram-3.fs-3.mb-2
+                                    p.mb-0
+                                        strong Infrastructure
+                                    p.small Terraform | Ansible | Docker
+                            .col-md-4.mb-3
+                                .text-white-75
+                                    i.bi-git.fs-3.mb-2
+                                    p.mb-0
+                                        strong CI/CD
+                                    p.small Jenkins | GitLab CI | GitHub Actions
+                        a.btn.btn-light.btn-xl(href='#skills') View Technical Skills
 
         // Services
         section#skills.page-section
@@ -80,25 +99,46 @@ html(lang='en')
                                 i.bi-gear-fill.fs-1.text-primary
                             h3.h4.mb-2
                                 a(href='https://github.com/brando93?tab=repositories&q=ansible', target='_blank', style='text-decoration: none; color: inherit;') Ansible
-                            p.text-muted.mb-0 Infrastructure automation and configuration management
+                            p.text-muted.mb-0 Configuration management, infrastructure automation, and orchestration at scale
                     .col-lg-3.col-md-6.text-center
                         .mt-5
                             .mb-2
                                 i.bi-code-slash.fs-1.text-primary
                             h3.h4.mb-2 Python
-                            p.text-muted.mb-0 Scripting, automation, and DevOps tooling
+                            p.text-muted.mb-0 Automation scripts, API integrations, and DevOps tooling development
                     .col-lg-3.col-md-6.text-center
                         .mt-5
                             .mb-2
                                 i.bi-terminal.fs-1.text-primary
                             h3.h4.mb-2 Bash
-                            p.text-muted.mb-0 Shell scripting and system administration
+                            p.text-muted.mb-0 System administration, deployment scripts, and process automation
                     .col-lg-3.col-md-6.text-center
                         .mt-5
                             .mb-2
                                 i.bi-box-seam.fs-1.text-primary
                             h3.h4.mb-2 Kubernetes
-                            p.text-muted.mb-0 Container orchestration and cloud-native applications
+                            p.text-muted.mb-0 Container orchestration, microservices deployment, and cluster management
+                
+                .row.gx-4.gx-lg-5.mt-5
+                    .col-lg-12.text-center
+                        h3.h4.mb-4 Additional Technologies
+                        .row
+                            .col-md-3.mb-3
+                                p.mb-1
+                                    strong.text-primary Infrastructure as Code
+                                p.small.text-muted Terraform, CloudFormation, Pulumi
+                            .col-md-3.mb-3
+                                p.mb-1
+                                    strong.text-primary Monitoring & Logging
+                                p.small.text-muted Prometheus, Grafana, ELK Stack
+                            .col-md-3.mb-3
+                                p.mb-1
+                                    strong.text-primary Version Control
+                                p.small.text-muted Git, GitHub, GitLab, Bitbucket
+                            .col-md-3.mb-3
+                                p.mb-1
+                                    strong.text-primary Databases
+                                p.small.text-muted PostgreSQL, MySQL, MongoDB, Redis
 
         // Repositories
         section#repositories.page-section
@@ -106,12 +146,31 @@ html(lang='en')
                 h2.text-center.mt-0 Repositories
                 hr.divider
                 .row.gx-4.gx-lg-5.justify-content-center
-                    .col-lg-8.text-center
+                    .col-lg-10.text-center
                         p.text-muted.mb-5
-                            | Check out my projects and contributions on GitHub
+                            | Explore my open-source contributions, automation scripts, and infrastructure projects. Active contributor to DevOps community with focus on practical, production-ready solutions.
+                        .row.mb-4
+                            .col-md-4.mb-3
+                                .card.h-100
+                                    .card-body
+                                        i.bi-code-square.fs-2.text-primary.mb-3
+                                        h5.card-title Infrastructure Automation
+                                        p.card-text.small Terraform modules, Ansible playbooks, and cloud provisioning scripts
+                            .col-md-4.mb-3
+                                .card.h-100
+                                    .card-body
+                                        i.bi-diagram-3.fs-2.text-primary.mb-3
+                                        h5.card-title CI/CD Pipelines
+                                        p.card-text.small Jenkins pipelines, GitHub Actions workflows, and deployment automation
+                            .col-md-4.mb-3
+                                .card.h-100
+                                    .card-body
+                                        i.bi-tools.fs-2.text-primary.mb-3
+                                        h5.card-title DevOps Tools
+                                        p.card-text.small Custom scripts, monitoring solutions, and productivity tools
                         a.btn.btn-primary.btn-xl(href='https://github.com/brando93', target='_blank')
                             i.bi-github.me-2
-                            | View GitHub Profile
+                            | View All Projects on GitHub
 
         // Contact
         section#contact.page-section

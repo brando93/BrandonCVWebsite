@@ -1,13 +1,22 @@
-// 
-// Colors
-// 
+//
+// Colors - Professional Navy Blue Theme
+//
 
-//- Override and add to color system
-$orange: #f4623a;
-$brown: #5c4d42;
+//- Professional color palette
+$navy-dark: #0a192f;      // Dark navy blue (main background)
+$navy-medium: #112240;    // Medium navy (sections)
+$navy-light: #1d3557;     // Light navy (hover states)
+$blue-accent: #64ffda;    // Cyan accent (highlights)
+$blue-bright: #5bc0de;    // Bright blue (links)
+$slate: #8892b0;          // Slate gray (text)
+$slate-light: #ccd6f6;    // Light slate (headings)
 
-//- Override primary color
-$primary: $orange;
+//- Override primary color with professional blue
+$primary: $blue-bright;
+
+//- Override secondary colors
+$secondary: $navy-light;
+$dark: $navy-dark;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
