@@ -1,0 +1,115 @@
+# Este es un archivo de EJEMPLO para entender GitHub Actions
+# NO se ejecutará porque está deshabilitado con "workflow_dispatch"
+# Puedes borrarlo después de entender los conceptos
+
+name: 00 - Ejemplo Básico (No se ejecuta automáticamente)
+
+# ============================================
+# TRIGGERS (Cuándo se ejecuta el workflow)
+# ============================================
+on:
+  workflow_dispatch:  # Solo se ejecuta manualmente desde GitHub UI
+  
+  # Otros triggers comunes:
+  # push:
+  #   branches: [ main, develop ]  # Se ejecuta en push a estas ramas
+  # pull_request:
+  #   branches: [ main ]           # Se ejecuta en PR hacia main
+  # schedule:
+  #   - cron: '0 0 * * *'          # Se ejecuta diariamente a medianoche
+
+# ============================================
+# VARIABLES DE ENTORNO (Disponibles en todos los jobs)
+# ============================================
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: 'us-east-1'
+
+# ============================================
+# JOBS (Tareas que se ejecutan)
+# ============================================
+jobs:
+  # Job 1: Build
+  build:
+    name: 'Construir el proyecto'
+    runs-on: ubuntu-latest  # Equivalente a "agent" en Jenkins
+    
+    steps:
+      # Step 1: Checkout del código
+      - name: Checkout código
+        uses: actions/checkout@v4  # "uses" = usar una action pre-construida
+        
+      # Step 2: Setup Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      # Step 3: Instalar dependencias
+      - name: Instalar dependencias
+        run: npm ci  # "run" = ejecutar comando shell
+        
+      # Step 4: Build del proyecto
+      - name: Build
+        run: npm run build
+        
+      # Step 5: Subir artefactos (para usar en otro job)
+      - name: Subir artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+          retention-days: 1
+
+  # Job 2: Deploy (depende de build)
+  deploy:
+    name: 'Desplegar a S3'
+    runs-on: ubuntu-latest
+    needs: build  # Este job espera a que "build" termine exitosamente
+    
+    steps:
+      # Step 1: Descargar artefactos del job anterior
+      - name: Descargar artefactos
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+          
+      # Step 2: Configurar credenciales AWS
+      - name: Configurar AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      # Step 3: Deploy a S3
+      - name: Deploy a S3
+        run: |
+          aws s3 sync dist/ s3://mi-bucket/ --delete
+          echo "✅ Deploy completado!"
+
+# ============================================
+# CONCEPTOS CLAVE
+# ============================================
+# 1. "uses" vs "run":
+#    - uses: Usa una action pre-construida (como un plugin)
+#    - run: Ejecuta comandos shell directamente
+#
+# 2. Secrets:
+#    - Se configuran en GitHub: Settings > Secrets and variables > Actions
+#    - Se acceden con: ${{ secrets.NOMBRE_SECRET }}
+#
+# 3. Variables de entorno:
+#    - env: A nivel de workflow (disponible en todos los jobs)
+#    - ${{ env.VARIABLE }}: Para acceder a variables
+#
+# 4. Artifacts:
+#    - Permiten pasar archivos entre jobs
+#    - Se suben con upload-artifact y se descargan con download-artifact
+#
+# 5. needs:
+#    - Define dependencias entre jobs
+#    - Los jobs sin "needs" se ejecutan en paralelo
+
+# Made with Bob

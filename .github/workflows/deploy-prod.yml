@@ -1,0 +1,80 @@
+name: Deploy to PROD
+
+# Se ejecuta SOLO cuando hay push a master (merge de PR)
+on:
+  push:
+    branches:
+      - master
+
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: 'us-east-1'
+  PROD_BUCKET: 'bran-website-prod'
+
+jobs:
+  deploy-prod:
+    name: 'Build and Deploy to PROD'
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Checkout del código
+      - name: Checkout código
+        uses: actions/checkout@v4
+        
+      # 2. Setup Node.js
+      - name: Configurar Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      # 3. Instalar dependencias
+      - name: Instalar dependencias
+        run: npm ci
+        
+      # 4. Build del proyecto
+      - name: Build del sitio web
+        run: npm run build
+        
+      # 5. Configurar credenciales AWS
+      - name: Configurar AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      # 6. Deploy a S3 PROD
+      - name: Deploy a S3 PROD
+        run: |
+          echo "🚀 Desplegando a PRODUCCIÓN..."
+          aws s3 sync dist/ s3://${{ env.PROD_BUCKET }}/ \
+            --delete \
+            --cache-control "max-age=86400" \
+            --exclude ".git/*"
+          echo "✅ Deploy a PRODUCCIÓN completado!"
+          
+      # 7. Invalidar cache de CloudFront (si lo agregas después)
+      # - name: Invalidar CloudFront cache
+      #   run: |
+      #     aws cloudfront create-invalidation \
+      #       --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+      #       --paths "/*"
+          
+      # 8. Mostrar URL del sitio
+      - name: Mostrar URL de PROD
+        run: |
+          echo "🌐 Sitio PROD disponible en:"
+          echo "http://${{ env.PROD_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+          
+      # 9. Comentar resultado
+      - name: Comentar resultado
+        if: success()
+        run: |
+          echo "### 🎉 Deploy a PRODUCCIÓN exitoso!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **URL:** http://${{ env.PROD_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Rama:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "📝 **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "👤 **Autor:** \`${{ github.actor }}\`" >> $GITHUB_STEP_SUMMARY

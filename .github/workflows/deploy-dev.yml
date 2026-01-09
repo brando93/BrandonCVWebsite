@@ -1,0 +1,72 @@
+name: Deploy to DEV
+
+# Se ejecuta en push a cualquier rama EXCEPTO master
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: 'us-east-1'
+  DEV_BUCKET: 'bran-website-dev'
+
+jobs:
+  deploy-dev:
+    name: 'Build and Deploy to DEV'
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Checkout del código
+      - name: Checkout código
+        uses: actions/checkout@v4
+        
+      # 2. Setup Node.js
+      - name: Configurar Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'  # Cachea node_modules para builds más rápidos
+          
+      # 3. Instalar dependencias
+      - name: Instalar dependencias
+        run: npm ci
+        
+      # 4. Build del proyecto
+      - name: Build del sitio web
+        run: npm run build
+        
+      # 5. Configurar credenciales AWS
+      - name: Configurar AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      # 6. Deploy a S3 DEV
+      - name: Deploy a S3 DEV
+        run: |
+          echo "🚀 Desplegando a DEV..."
+          aws s3 sync dist/ s3://${{ env.DEV_BUCKET }}/ \
+            --delete \
+            --cache-control "max-age=300" \
+            --exclude ".git/*"
+          echo "✅ Deploy completado!"
+          
+      # 7. Mostrar URL del sitio
+      - name: Mostrar URL de DEV
+        run: |
+          echo "🌐 Sitio DEV disponible en:"
+          echo "http://${{ env.DEV_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+          
+      # 8. Comentar resultado
+      - name: Comentar resultado
+        if: success()
+        run: |
+          echo "### ✅ Deploy a DEV exitoso!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **URL:** http://${{ env.DEV_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Rama:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "📝 **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
