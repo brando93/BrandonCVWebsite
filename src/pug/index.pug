@@ -41,7 +41,9 @@ html(lang='en')
                         li.nav-item
                             a.nav-link(href='#skills') Skills
                         li.nav-item
-                            a.nav-link(href='#repositories') Repositories
+                            a.nav-link(href='#certifications') Certifications
+                        li.nav-item
+                            a.nav-link(href='#repositories') Projects
                         li.nav-item
                             a.nav-link(href='#contact') Contact
 
@@ -119,37 +121,57 @@ html(lang='en')
                             h3.h4.mb-2 Kubernetes
                             p.text-muted.mb-0 Container orchestration, microservices deployment, and cluster management
 
+        // Certifications
+        section#certifications.page-section.bg-light
+            .container.px-4.px-lg-5
+                h2.text-center.mt-0 Certifications
+                hr.divider
+                .row.gx-4.gx-lg-5.justify-content-center
+                    .col-lg-10
+                        .row.mb-4
+                            .col-md-4.mb-4
+                                .card.h-100.border-0.shadow-sm
+                                    .card-body.text-center
+                                        .mb-3
+                                            i.bi-award-fill.fs-1.text-primary
+                                        h5.card-title.mb-3 ☸️ Certified Kubernetes Administrator (CKA)
+                                        p.card-text.small.text-muted.mb-2
+                                            strong ID:
+                                            |  LF-xzcc59lbnf
+                                        p.card-text.small Linux Foundation
+                            .col-md-4.mb-4
+                                .card.h-100.border-0.shadow-sm
+                                    .card-body.text-center
+                                        .mb-3
+                                            i.bi-award-fill.fs-1.text-primary
+                                        h5.card-title.mb-3 🧱 HashiCorp Certified: Terraform Associate
+                                        p.card-text.small.text-muted.mb-2
+                                            strong ID:
+                                            |  a533f2cb6e8d
+                                        p.card-text.small HashiCorp
+                            .col-md-4.mb-4
+                                .card.h-100.border-0.shadow-sm
+                                    .card-body.text-center
+                                        .mb-3
+                                            i.bi-award-fill.fs-1.text-primary
+                                        h5.card-title.mb-3 ☁️ AWS Certified Solutions Architect – Associate
+                                        p.card-text.small.text-muted.mb-2
+                                            strong ID:
+                                            |  20081a21-7d12-4226-bf35-67edab0d66ff
+                                        p.card-text.small Amazon Web Services
+
         // Repositories
         section#repositories.page-section
             .container.px-4.px-lg-5
-                h2.text-center.mt-0 Repositories
+                h2.text-center.mt-0 GitHub Projects
                 hr.divider
                 .row.gx-4.gx-lg-5.justify-content-center
-                    .col-lg-10.text-center
+                    .col-lg-8.text-center
                         p.text-muted.mb-5
-                            | Explore my open-source contributions, automation scripts, and infrastructure projects. Active contributor to DevOps community with focus on practical, production-ready solutions.
-                        .row.mb-4
-                            .col-md-4.mb-3
-                                .card.h-100
-                                    .card-body
-                                        i.bi-code-square.fs-2.text-primary.mb-3
-                                        h5.card-title Infrastructure Automation
-                                        p.card-text.small Terraform modules, Ansible playbooks, and cloud provisioning scripts
-                            .col-md-4.mb-3
-                                .card.h-100
-                                    .card-body
-                                        i.bi-diagram-3.fs-2.text-primary.mb-3
-                                        h5.card-title CI/CD Pipelines
-                                        p.card-text.small Jenkins pipelines, GitHub Actions workflows, and deployment automation
-                            .col-md-4.mb-3
-                                .card.h-100
-                                    .card-body
-                                        i.bi-tools.fs-2.text-primary.mb-3
-                                        h5.card-title DevOps Tools
-                                        p.card-text.small Custom scripts, monitoring solutions, and productivity tools
+                            | Explore my open-source contributions, automation scripts, and infrastructure projects on GitHub
                         a.btn.btn-primary.btn-xl(href='https://github.com/brando93', target='_blank')
                             i.bi-github.me-2
-                            | View All Projects on GitHub
+                            | View GitHub Profile
 
         // Contact
         section#contact.page-section
