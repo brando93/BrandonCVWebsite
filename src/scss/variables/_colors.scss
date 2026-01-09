@@ -14,12 +14,16 @@ $slate-light: #ccd6f6;    // Light slate (headings)
 //- Keep brown for backward compatibility (used in masthead)
 $brown: $navy-dark;       // Map brown to navy-dark for masthead overlay
 
-//- Override primary color with professional blue
-$primary: $blue-bright;
+//- Override primary color to navy for consistent theme
+$primary: $navy-medium;   // Use navy medium for primary sections
 
 //- Override secondary colors
 $secondary: $navy-light;
 $dark: $navy-dark;
+
+//- Link and accent colors
+$link-color: $blue-bright;
+$link-hover-color: $blue-accent;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
