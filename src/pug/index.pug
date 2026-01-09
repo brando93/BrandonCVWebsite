@@ -122,96 +122,18 @@ html(lang='en')
                         hr.divider
                         p.text-muted.mb-5
                             | Interested in collaborating or have a question? Feel free to reach out!
-                .row.gx-4.gx-lg-5.justify-content-center.mb-5
-                    .col-lg-6
-
-                        // * * * * * * * * * * * * * * *
-                        // * * SB Forms Contact Form * *
-                        // * * * * * * * * * * * * * * *
-
-                        // This form is pre-integrated with SB Forms.
-                        // To make this form functional, sign up at
-                        // https://startbootstrap.com/solution/contact-forms
-                        // to get an API token!
-
-                        form#contactForm(data-sb-form-api-token='API_TOKEN')
-
-                            // Name input
-                            .form-floating.mb-3
-                                input#name.form-control(
-                                    type='text',
-                                    placeholder='Enter your name...',
-                                    data-sb-validations='required'
-                                )
-                                label(for='name') Full name
-                                .invalid-feedback(data-sb-feedback='name:required')
-                                    | A name is required.
-
-                            // Email address input
-                            .form-floating.mb-3
-                                input#email.form-control(
-                                    type='email',
-                                    placeholder='name@example.com',
-                                    data-sb-validations='required,email'
-                                )
-                                label(for='email') Email address
-                                .invalid-feedback(data-sb-feedback='email:required')
-                                    | An email is required.
-                                .invalid-feedback(data-sb-feedback='email:email')
-                                    | Email is not valid.
-
-                            // Phone number input
-                            .form-floating.mb-3
-                                input#phone.form-control(
-                                    type='tel',
-                                    placeholder='(123) 456-7890',
-                                    data-sb-validations='required'
-                                )
-                                label(for='phone') Phone number
-                                .invalid-feedback(data-sb-feedback='phone:required')
-                                    | A phone number is required.
-
-                            // Message input
-                            .form-floating.mb-3
-                                textarea#message.form-control(
-                                    type='text',
-                                    placeholder='Enter your message here...',
-                                    style='height: 10rem;',
-                                    data-sb-validations='required'
-                                )
-                                label(for='message') Message
-                                .invalid-feedback(data-sb-feedback='message:required')
-                                    | A message is required.
-
-                            // Submit success message
-                            //
-                            // This is what your users will see when the form
-                            // has successfully submitted
-
-                            #submitSuccessMessage.d-none
-                                .text-center.mb-3
-                                    .fw-bolder Form submission successful!
-                                    | To activate this form, sign up at
-                                    br
-                                    a(href='https://startbootstrap.com/solution/contact-forms') https://startbootstrap.com/solution/contact-forms
-
-                            // Submit error message
-                            //
-                            // This is what your users will see when there is
-                            // an error submitting the form
-
-                            #submitErrorMessage.d-none
-                                .text-center.text-danger.mb-3 Error sending message!
-
-                            // Submit Button
-                            .d-grid
-                                button#submitButton.btn.btn-primary.btn-xl.disabled(type='submit') Submit
-
                 .row.gx-4.gx-lg-5.justify-content-center
-                    .col-lg-4.text-center.mb-5.mb-lg-0
-                        i.bi-github.fs-2.mb-3.text-muted
-                        div
-                            a(href='https://github.com/brando93', target='_blank', style='text-decoration: none; color: inherit;') github.com/brando93
+                    .col-lg-4.col-md-6.text-center.mb-5.mb-lg-0
+                        .mb-3
+                            i.bi-envelope-fill.fs-2.text-primary
+                        h4.mb-2 Email
+                        a(href='mailto:brandonrodriguez_93@hotmail.com', style='text-decoration: none;') brandonrodriguez_93@hotmail.com
+                    
+                    .col-lg-4.col-md-6.text-center.mb-5.mb-lg-0
+                        .mb-3
+                            i.bi-github.fs-2.text-primary
+                        h4.mb-2 GitHub
+                        a(href='https://github.com/brando93', target='_blank', style='text-decoration: none;') github.com/brando93
 
         // Footer
         footer.bg-light.py-5
