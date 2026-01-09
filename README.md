@@ -1,55 +1,180 @@
-## Status
+# Professional CV Website - Infrastructure & CI/CD
 
-[![npm version](https://img.shields.io/npm/v/startbootstrap-creative.svg)](https://www.npmjs.com/package/startbootstrap-creative)
+Static website hosted on AWS S3 with automated CI/CD pipeline using GitHub Actions and Infrastructure as Code with Terraform.
 
-## Download and Installation
+## 🏗️ Infrastructure
 
-To begin using this template, choose one of the following options to get started:
+### AWS Resources (Terraform)
 
-- [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/creative/)
-- Install using npm: `npm i startbootstrap-creative`
-- Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-creative.git`
-- [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-creative)
+- **2 S3 Buckets**: DEV and PROD environments
+- **S3 Website Hosting**: Static website configuration
+- **S3 Versioning**: Enabled for backup and rollback
+- **Public Access**: Configured with bucket policies
+- **Region**: us-east-1
 
-## Usage
+### Terraform Structure
 
-### Basic Usage
+```
+terraform/
+├── main.tf           # Provider and backend configuration
+├── variables.tf      # Input variables
+├── s3-buckets.tf     # S3 bucket resources
+└── outputs.tf        # Output values (URLs, bucket names)
+```
 
-After downloading, simply edit the HTML and CSS files included with `dist` directory. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+## 🚀 CI/CD Pipeline (GitHub Actions)
 
-### Advanced Usage
+### Workflows
 
-Clone the source files of the theme and navigate into the theme's root directory. Run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `package.json` file to see which scripts are included.
+#### 1. DEV Deployment (`deploy-dev.yml`)
+- **Trigger**: Push to any branch except `master`
+- **Purpose**: Test changes before production
+- **Steps**:
+  1. Checkout code
+  2. Setup Node.js 18
+  3. Install dependencies (`npm ci`)
+  4. Build website (`npm run build`)
+  5. Configure AWS credentials
+  6. Sync to S3 DEV bucket
+  7. Display deployment URL
 
-#### npm Scripts
+#### 2. PROD Deployment (`deploy-prod.yml`)
+- **Trigger**: Push to `master` branch
+- **Purpose**: Deploy to production
+- **Steps**:
+  1. Checkout code
+  2. Setup Node.js 18
+  3. Install dependencies (`npm ci`)
+  4. Build website (`npm run build`)
+  5. Configure AWS credentials
+  6. Sync to S3 PROD bucket
+  7. Display deployment URL
 
-- `npm run build` builds the project - this builds assets, HTML, JS, and CSS into `dist`
-- `npm run build:assets` copies the files in the `src/assets/` directory into `dist`
-- `npm run build:pug` compiles the Pug located in the `src/pug/` directory into `dist`
-- `npm run build:scripts` brings the `src/js/scripts.js` file into `dist`
-- `npm run build:scss` compiles the SCSS files located in the `src/scss/` directory into `dist`
-- `npm run clean` deletes the `dist` directory to prepare for rebuilding the project
-- `npm run start:debug` runs the project in debug mode
-- `npm start` or `npm run start` runs the project, launches a live preview in your default browser, and watches for changes made to files in `src`
+### GitHub Secrets Required
 
-You must have npm installed in order to use this build environment.
+```
+AWS_ACCESS_KEY_ID       # IAM user access key
+AWS_SECRET_ACCESS_KEY   # IAM user secret key
+```
 
-### Contact Form
+## 📦 Deployment Flow
 
-The contact form available with this theme is prebuilt to use [SB Forms](https://startbootstrap.com/solution/contact-forms).
-SB Forms is a simple form solution for adding functional forms to your theme. Since this theme is prebuilt using our
-SB Forms markup, all you need to do is sign up for [SB Forms on Start Bootstrap](https://startbootstrap.com/solution/contact-forms).
+```
+┌─────────────────────────────────────────────────────────┐
+│  Developer                                              │
+│  ├── Create feature branch                             │
+│  ├── Make changes                                       │
+│  └── Push to GitHub                                     │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  GitHub Actions (DEV Workflow)                          │
+│  ├── Build website                                      │
+│  ├── Deploy to S3 DEV                                   │
+│  └── URL: bran-website-dev.s3-website-us-east-1...     │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  Review & Test                                          │
+│  └── Verify changes in DEV environment                 │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  Merge to Master                                        │
+│  └── Create PR and merge                               │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  GitHub Actions (PROD Workflow)                         │
+│  ├── Build website                                      │
+│  ├── Deploy to S3 PROD                                  │
+│  └── URL: bran-website-prod.s3-website-us-east-1...    │
+└─────────────────────────────────────────────────────────┘
+```
 
-After signing up you will need to set the domain name your form will be used on, and you will then see your
-access key. Copy this and paste it into the `data-sb-form-api-token='API_TOKEN'` data attribute in place of
-`API_TOKEN`. That's it! Your forms will be up and running!
+## 🛠️ Setup Instructions
 
-If you aren't using SB Forms, simply delete the custom data attributes from the form, and remove the link above the
-closing `</body>` tag to SB Forms.
+### 1. Infrastructure Deployment
 
-### About
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
 
-Start Bootstrap is an open source library of free Bootstrap themes and templates. All of the free themes and templates on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+### 2. Configure GitHub Secrets
 
-https://startbootstrap.com
-https://twitter.com/SBootstrap
+1. Go to repository Settings → Secrets and variables → Actions
+2. Add `AWS_ACCESS_KEY_ID`
+3. Add `AWS_SECRET_ACCESS_KEY`
+
+### 3. Deploy Website
+
+```bash
+# Deploy to DEV
+git checkout -b feature/my-changes
+git add .
+git commit -m "My changes"
+git push origin feature/my-changes
+
+# Deploy to PROD
+git checkout master
+git merge feature/my-changes
+git push origin master
+```
+
+## 🌐 Environments
+
+| Environment | URL | Purpose |
+|-------------|-----|---------|
+| DEV | http://bran-website-dev.s3-website-us-east-1.amazonaws.com | Testing |
+| PROD | http://bran-website-prod.s3-website-us-east-1.amazonaws.com | Production |
+
+## 📊 Tech Stack
+
+### Infrastructure
+- **Terraform** - Infrastructure as Code
+- **AWS S3** - Static website hosting
+- **AWS IAM** - Access management
+
+### CI/CD
+- **GitHub Actions** - Automated deployments
+- **GitHub** - Version control and collaboration
+
+### Build Tools
+- **Node.js 18** - Build environment
+- **npm** - Package management
+- **Pug** - HTML templating
+- **SCSS** - CSS preprocessing
+
+## 🔒 Security
+
+- S3 versioning enabled for rollback capability
+- IAM user with minimal required permissions
+- Secrets stored in GitHub encrypted secrets
+- Public read-only access to website content
+
+## 📝 Maintenance
+
+### Update Website Content
+1. Edit files in `src/` directory
+2. Push to feature branch (deploys to DEV)
+3. Test in DEV environment
+4. Merge to master (deploys to PROD)
+
+### Update Infrastructure
+1. Modify Terraform files in `terraform/`
+2. Run `terraform plan` to preview changes
+3. Run `terraform apply` to apply changes
+
+### Rollback
+Use S3 versioning to restore previous versions:
+```bash
+aws s3api list-object-versions --bucket bran-website-prod
+aws s3api get-object --bucket bran-website-prod --key index.html --version-id <VERSION_ID> index.html
+```
