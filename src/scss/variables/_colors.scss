@@ -11,6 +11,9 @@ $blue-bright: #5bc0de;    // Bright blue (links)
 $slate: #8892b0;          // Slate gray (text)
 $slate-light: #ccd6f6;    // Light slate (headings)
 
+//- Keep brown for backward compatibility (used in masthead)
+$brown: $navy-dark;       // Map brown to navy-dark for masthead overlay
+
 //- Override primary color with professional blue
 $primary: $blue-bright;
 
