@@ -115,17 +115,48 @@ terraform apply
 
 ### 3. Deploy Website
 
+#### Deploy to DEV (Testing)
 ```bash
-# Deploy to DEV
+# 1. Create a feature branch
 git checkout -b feature/my-changes
+
+# 2. Make your changes and commit
 git add .
 git commit -m "My changes"
-git push origin feature/my-changes
 
-# Deploy to PROD
+# 3. Push to GitHub (triggers DEV deployment automatically)
+git push origin feature/my-changes
+```
+
+**GitHub Actions will automatically:**
+- Build the website
+- Deploy to DEV environment
+- Provide the DEV URL in the workflow output
+
+**DEV URL:** http://bran-website-dev.s3-website-us-east-1.amazonaws.com
+
+#### Deploy to PROD (After testing in DEV)
+```bash
+# 1. Switch to master branch
 git checkout master
+
+# 2. Merge your tested feature branch
 git merge feature/my-changes
+
+# 3. Push to master (triggers PROD deployment automatically)
 git push origin master
+```
+
+**GitHub Actions will automatically:**
+- Build the website
+- Deploy to PROD environment
+- Your changes are now live!
+
+**PROD URL:** http://bran-website-prod.s3-website-us-east-1.amazonaws.com
+
+#### Workflow Summary
+```
+Feature Branch → Push → DEV Deploy (Test) → Merge to Master → PROD Deploy (Live)
 ```
 
 ## 🌐 Environments
