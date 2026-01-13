@@ -41,6 +41,8 @@ html(lang='en')
                         li.nav-item
                             a.nav-link(href='#skills') Skills
                         li.nav-item
+                            a.nav-link(href='#experience') Work Experience
+                        li.nav-item
                             a.nav-link(href='#certifications') Certifications
                         li.nav-item
                             a.nav-link(href='#repositories') Projects
@@ -118,11 +120,89 @@ html(lang='en')
                         .mt-5
                             .mb-2
                                 i.bi-box-seam.fs-1.text-primary
+        // Work Experience
+        section#experience.page-section.bg-light
+            .container.px-4.px-lg-5
+                h2.text-center.mt-0 Work Experience
+                hr.divider
+                .row.gx-4.gx-lg-5.justify-content-center
+                    .col-lg-10
+                        .accordion#experienceAccordion
+                            // VMware - Current
+                            .accordion-item.border-0.shadow-sm.mb-3
+                                h2.accordion-header#headingVMware
+                                    button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#collapseVMware', aria-expanded='false', aria-controls='collapseVMware')
+                                        .d-flex.align-items-center.w-100
+                                            i.bi-building.text-primary.me-3.fs-4
+                                            div
+                                                strong Cloud Site Reliability Engineer II
+                                                .text-muted.small VMware | 2021 - Present
+                                #collapseVMware.accordion-collapse.collapse(aria-labelledby='headingVMware', data-bs-parent='#experienceAccordion')
+                                    .accordion-body
+                                        p I took on a key role in maintaining the company's internal infrastructure, which included CDN, Load Balancers, VMs, some vCenter/ESXi. To streamline operations, utilizing automation and Infrastructure as Code (IaC) tools such as: Puppet and SaltStack, effectively managing and implementing new features.
+                                        p.mb-0 My focus on quality and innovation helped ensure that the company's internal environment was highly secure, reliable, and scalable.
+                            
+                            // Citi Bank - OpenShift
+                            .accordion-item.border-0.shadow-sm.mb-3
+                                h2.accordion-header#headingCitiOpenShift
+                                    button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#collapseCitiOpenShift', aria-expanded='false', aria-controls='collapseCitiOpenShift')
+                                        .d-flex.align-items-center.w-100
+                                            i.bi-building.text-primary.me-3.fs-4
+                                            div
+                                                strong OpenShift Engineer
+                                                .text-muted.small Citi Bank | 2020 - 2021
+                                #collapseCitiOpenShift.accordion-collapse.collapse(aria-labelledby='headingCitiOpenShift', data-bs-parent='#experienceAccordion')
+                                    .accordion-body
+                                        p In charge of supporting critical applications hosted in OpenShift pods. I collaborated closely with developers, actively working to troubleshoot and resolve issues related to their pipeline, deployments, pods, services, and secrets.
+                                        p.mb-0 Additionally, I was responsible for patching and maintaining Kubernetes nodes and ensuring the overall OpenShift environment was highly secure and available.
+                            
+                            // Citi Bank - L3 Unix/Linux
+                            .accordion-item.border-0.shadow-sm.mb-3
+                                h2.accordion-header#headingCitiUnix
+                                    button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#collapseCitiUnix', aria-expanded='false', aria-controls='collapseCitiUnix')
+                                        .d-flex.align-items-center.w-100
+                                            i.bi-building.text-primary.me-3.fs-4
+                                            div
+                                                strong L3 Unix/Linux System Engineer
+                                                .text-muted.small Citi Bank | 2020
+                                #collapseCitiUnix.accordion-collapse.collapse(aria-labelledby='headingCitiUnix', data-bs-parent='#experienceAccordion')
+                                    .accordion-body
+                                        p In charge of organization's cloud environment, focusing on virtual machines to ensure high availability and resolve critical availability issues.
+                                        p.mb-0 My responsibilities included patching, automating processes, and developing scripts to streamline operations and enhance team productivity.
+                            
+                            // IBM
+                            .accordion-item.border-0.shadow-sm.mb-3
+                                h2.accordion-header#headingIBM
+                                    button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#collapseIBM', aria-expanded='false', aria-controls='collapseIBM')
+                                        .d-flex.align-items-center.w-100
+                                            i.bi-building.text-primary.me-3.fs-4
+                                            div
+                                                strong Cloud Unix System Engineer
+                                                .text-muted.small IBM | 2018 - 2020
+                                #collapseIBM.accordion-collapse.collapse(aria-labelledby='headingIBM', data-bs-parent='#experienceAccordion')
+                                    .accordion-body
+                                        p I provided support to thousands of Linux/AIX clients' virtual machines within IBM's cloud environment, collaborating with clients and stakeholders to ensure high availability of critical systems. Automating daily tasks, also worked closely with SAP administrators to patch AIX/SUSE systems.
+                                        p.mb-0 In the event of high-criticality issues affecting a cluster, I acted rapidly to ensure that IBM did not lose money on uptime for clients' systems.
+                            
+                            // DXC
+                            .accordion-item.border-0.shadow-sm.mb-3
+                                h2.accordion-header#headingDXC
+                                    button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#collapseDXC', aria-expanded='false', aria-controls='collapseDXC')
+                                        .d-flex.align-items-center.w-100
+                                            i.bi-building.text-primary.me-3.fs-4
+                                            div
+                                                strong Linux System Administrator
+                                                .text-muted.small DXC | 2016 - 2017
+                                #collapseDXC.accordion-collapse.collapse(aria-labelledby='headingDXC', data-bs-parent='#experienceAccordion')
+                                    .accordion-body
+                                        p I managed and provided support for hundreds of Linux cloud VMs under vSphere. I was responsible for regular patching of these servers and automated daily tasks using Bash scripting.
+                                        p.mb-0 In addition, I participated in an on-call rotation for weekends to ensure that any issues or critical incidents were handled promptly and effectively.
+
                             h3.h4.mb-2 Kubernetes
                             p.text-muted.mb-0 Container orchestration, microservices deployment, and cluster management
 
         // Certifications
-        section#certifications.page-section.bg-light
+        section#certifications.page-section
             .container.px-4.px-lg-5
                 h2.text-center.mt-0 Certifications
                 hr.divider
