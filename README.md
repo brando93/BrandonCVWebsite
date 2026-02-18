@@ -198,6 +198,148 @@ Feature Branch → Push → DEV Deploy (Test) → Merge to Master → PROD Deplo
 3. Test in DEV environment
 4. Merge to master (deploys to PROD)
 
+## 🎨 Modifying the Website UI
+
+### Main Files for UI Changes
+
+#### 1. HTML Content (Structure)
+**File:** `src/pug/index.pug`
+- **What to modify here:**
+  - Website text (titles, descriptions, paragraphs)
+  - Section structure (About, Services, Portfolio, Contact)
+  - Personal information (name, professional title, bio)
+  - Social media links
+  - Work experience and certifications
+  - Portfolio projects
+
+**Common changes example:**
+```pug
+// Change main title
+h1.text-white.font-weight-bold Brandon Rodriguez
+
+// Modify description
+p.text-white-75.mb-5 DevOps Engineer | Cloud Architect
+
+// Add new experience section
+section#experience
+  .container
+    h2 Professional Experience
+```
+
+#### 2. CSS Styles (Visual Appearance)
+**Main files:**
+
+- **`src/scss/styles.scss`** - Main file that imports all styles
+- **`src/scss/_variables.scss`** - Global variables (colors, fonts, spacing)
+- **`src/scss/_global.scss`** - Global site styles
+
+**Component files:**
+- **`src/scss/components/_navbar.scss`** - Navigation menu styles
+- **`src/scss/components/_buttons.scss`** - Button styles
+- **`src/scss/components/_dividers.scss`** - Section dividers
+
+**Section files:**
+- **`src/scss/sections/_masthead.scss`** - Main/hero section
+- **`src/scss/sections/_portfolio.scss`** - Portfolio/projects section
+
+**Design variables:**
+- **`src/scss/variables/_colors.scss`** - Color palette
+- **`src/scss/variables/_typography.scss`** - Fonts and text sizes
+- **`src/scss/variables/_spacing.scss`** - Margins and padding
+
+**Common changes example:**
+```scss
+// Change primary color (src/scss/variables/_colors.scss)
+$primary: #f4623a;
+
+// Modify font size (src/scss/variables/_typography.scss)
+$font-size-base: 1rem;
+
+// Adjust spacing (src/scss/variables/_spacing.scss)
+$spacer: 1rem;
+```
+
+#### 3. JavaScript (Interactivity)
+**File:** `src/js/scripts.js`
+- **What to modify here:**
+  - Navigation menu behavior
+  - Animations and effects
+  - Smooth scrolling between sections
+  - Portfolio lightbox
+  - Form validation
+
+**Common changes example:**
+```javascript
+// Modify scroll behavior
+window.addEventListener('scroll', function() {
+    // Your custom code
+});
+```
+
+#### 4. Images and Assets
+**Directories:**
+- **`src/assets/img/`** - General images
+- **`src/assets/img/portfolio/`** - Portfolio images
+  - `fullsize/` - Full-size images
+  - `thumbnails/` - Thumbnail images
+- **`src/assets/img/companies/`** - Company logos
+- **`src/assets/img/certifications/`** - Certification images
+- **`src/assets/favicon.ico`** - Site icon
+
+### Workflow for UI Changes
+
+```
+1. Identify what to change:
+   ├── Content/Text → src/pug/index.pug
+   ├── Colors/Styles → src/scss/
+   ├── Behavior → src/js/scripts.js
+   └── Images → src/assets/img/
+
+2. Make changes in the corresponding files
+
+3. Test locally (optional):
+   npm install
+   npm start
+   # Opens http://localhost:3000
+
+4. Deploy to DEV:
+   git checkout -b feature/ui-changes
+   git add .
+   git commit -m "Update UI: description of changes"
+   git push origin feature/ui-changes
+   # Review at: http://bran-website-dev.s3-website-us-east-1.amazonaws.com
+
+5. Deploy to PROD (after testing in DEV):
+   git checkout master
+   git merge feature/ui-changes
+   git push origin master
+   # Live at: http://bran-website-prod.s3-website-us-east-1.amazonaws.com
+```
+
+### Common Modification Examples
+
+#### Change site primary color
+1. Edit `src/scss/variables/_colors.scss`
+2. Modify the `$primary` variable
+3. Save and deploy
+
+#### Update personal information
+1. Edit `src/pug/index.pug`
+2. Find the corresponding section (About, Contact, etc.)
+3. Modify the text
+4. Save and deploy
+
+#### Add new portfolio project
+1. Add images to `src/assets/img/portfolio/`
+2. Edit `src/pug/index.pug` in the portfolio section
+3. Add the new item with its image and description
+4. Save and deploy
+
+#### Change navigation menu styles
+1. Edit `src/scss/components/_navbar.scss`
+2. Modify the desired styles
+3. Save and deploy
+
 ### Update Infrastructure
 1. Modify Terraform files in `terraform/`
 2. Run `terraform plan` to preview changes
